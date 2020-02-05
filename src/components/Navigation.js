@@ -17,7 +17,8 @@ import {
   faLinkedin,
   faDiscord
 } from '@fortawesome/free-brands-svg-icons';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
+import { logOut } from '../actions';
 
 const Navigation = props => {
   const status = props.isLoggedIn;
@@ -27,6 +28,11 @@ const Navigation = props => {
     sidebar.classList.toggle('slide-right');
   };
 
+  const handleLogOut = e => {
+    toggleSidebar();
+    props.logOut();
+    props.history.push('/');
+  };
   const active = {
     color: '#6bc774'
   };
@@ -74,7 +80,7 @@ const Navigation = props => {
         </div>
         <div className="divider"></div>
         {status && (
-          <div className="menu-item" onClick={toggleSidebar}>
+          <div className="menu-item" onClick={handleLogOut}>
             <NavLink to="/login" activeStyle={active}>
               <FontAwesomeIcon icon={faBaby} />
               Log out
@@ -113,4 +119,4 @@ const mapsStateToProps = state => {
   return { isLoggedIn: state.isLoggedIn, info: state.info };
 };
 
-export default connect(mapsStateToProps)(Navigation);
+export default connect(mapsStateToProps, { logOut })(withRouter(Navigation));

@@ -4,3 +4,10 @@ export const handleLogin = payload => {
     payload
   };
 };
+
+export const logOut = payload => {
+  return {
+    type: 'HANDLE_LOGOUT',
+    payload
+  };
+};

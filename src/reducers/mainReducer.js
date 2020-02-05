@@ -5,7 +5,7 @@ const initialState = {
 
 const mainReducer = (state = initialState, action) => {
   if (action.type === 'HANDLE_LOGIN') {
-    // WE MAKE AN API CALL coming sooooon
+    //  MAKE AN API CALL coming sooooon
     const res = {
       lastName: 'McLein',
       firstName: 'John',
@@ -18,6 +18,11 @@ const mainReducer = (state = initialState, action) => {
     state.info = res;
     state.isLoggedIn = true;
 
+    return Object.assign({}, state);
+  }
+
+  if (action.type === 'HANDLE_LOGOUT') {
+    state.isLoggedIn = false;
     return Object.assign({}, state);
   }
 
