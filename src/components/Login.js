@@ -41,24 +41,28 @@ class Login extends React.Component {
           <div id="login" className="page thirdColor">
             <h1>Login</h1>
             <form onSubmit={this.handleSubmit}>
-              <label className="flex-col-left">
-                Email:
+              <div className="row flex-revcol-left">
                 <input
                   name="email"
                   type="text"
                   value={this.state.email}
                   onChange={this.handleInputChange}
+                  id="email"
+                  required
                 />
-              </label>
-              <label className="flex-col-left">
-                Password:
+                <label for="email">Email</label>
+              </div>
+              <div className="row flex-revcol-left">
                 <input
                   name="password"
                   type="text"
                   value={this.state.password}
                   onChange={this.handleInputChange}
+                  id="password"
+                  required
                 />
-              </label>
+                <label for="password">Password</label>
+              </div>
               <input type="submit" value="Submit" />
             </form>
           </div>
