@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import friend from '../assets/friend.gif';
 import {
   faBars,
   faRecordVinyl,
   faUserInjured,
+  faBaby,
   faUserAstronaut,
   faBlenderPhone,
   faCarrot
@@ -14,10 +17,11 @@ import {
   faLinkedin,
   faDiscord
 } from '@fortawesome/free-brands-svg-icons';
-
 import { Link, NavLink } from 'react-router-dom';
 
-function Navigation() {
+const Navigation = props => {
+  const status = props.isLoggedIn;
+
   const toggleSidebar = e => {
     const sidebar = document.querySelector('#sidebar');
     sidebar.classList.toggle('slide-right');
@@ -29,13 +33,25 @@ function Navigation() {
 
   return (
     <>
-      <div id="navigation" className="flex-row-center navColor">
-        <div id="burger">
-          <FontAwesomeIcon icon={faBars} onClick={toggleSidebar} />
+      <div id="navigation" className="flex-row-space-between navColor">
+        <div className="left flex-row-center">
+          <div id="burger">
+            <FontAwesomeIcon icon={faBars} onClick={toggleSidebar} />
+          </div>
+          <div id="logo">
+            <NavLink to="/">BABYLON RECORDS</NavLink>
+          </div>
         </div>
-        <div id="logo">
-          <NavLink to="/">BABYLON RECORDS</NavLink>
-        </div>
+        {status && (
+          <div className="right flex-row-center">
+            <div className="name">
+              <p>{props.info.fullName}</p>
+            </div>
+            <div className="avatar">
+              <img src={friend}></img>
+            </div>
+          </div>
+        )}
       </div>
       <div id="sidebar" className="navColor">
         <div className="menu-item" onClick={toggleSidebar}>
@@ -57,18 +73,30 @@ function Navigation() {
           </Link>
         </div>
         <div className="divider"></div>
-        <div className="menu-item" onClick={toggleSidebar}>
-          <NavLink to="/login" activeStyle={active}>
-            <FontAwesomeIcon icon={faUserInjured} />
-            Login
-          </NavLink>
-        </div>
-        <div className="menu-item" onClick={toggleSidebar}>
-          <NavLink to="/signup" activeStyle={active}>
-            <FontAwesomeIcon icon={faUserAstronaut} />
-            Sign up
-          </NavLink>
-        </div>
+        {status && (
+          <div className="menu-item" onClick={toggleSidebar}>
+            <NavLink to="/login" activeStyle={active}>
+              <FontAwesomeIcon icon={faBaby} />
+              Log out
+            </NavLink>
+          </div>
+        )}
+        {!status && (
+          <>
+            <div className="menu-item" onClick={toggleSidebar}>
+              <NavLink to="/login" activeStyle={active}>
+                <FontAwesomeIcon icon={faUserInjured} />
+                Login
+              </NavLink>
+            </div>
+            <div className="menu-item" onClick={toggleSidebar}>
+              <NavLink to="/signup" activeStyle={active}>
+                <FontAwesomeIcon icon={faUserAstronaut} />
+                Sign up
+              </NavLink>
+            </div>
+          </>
+        )}
         <div className="divider"></div>
         <div className="menu-item social">
           <FontAwesomeIcon icon={faFacebook} />
@@ -79,6 +107,10 @@ function Navigation() {
       </div>
     </>
   );
-}
+};
 
-export default Navigation;
+const mapsStateToProps = state => {
+  return { isLoggedIn: state.isLoggedIn, info: state.info };
+};
+
+export default connect(mapsStateToProps)(Navigation);
