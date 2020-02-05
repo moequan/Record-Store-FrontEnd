@@ -4,7 +4,8 @@ $color3: #005678;
 $color4: #114b5f;
 $color5: #028090;
 * {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
+  box-sizing: border-box;
 }
 
 html,
@@ -64,7 +65,7 @@ body,
         }
       }
 
-      input[type='submit'] {
+      input[type="submit"] {
         background-color: $color5;
         border: 0;
         color: white;
@@ -94,6 +95,12 @@ body,
       flex-direction: column-reverse;
       justify-content: left;
       align-items: flex-start;
+    }
+    .flex-row-space-between {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
     }
     .navColor {
       background-color: $color2;
@@ -134,19 +141,39 @@ body,
   }
   #navigation {
     padding: 20px;
+    height: 60px;
     color: white;
     position: fixed;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: 0;
-    #burger {
-      margin-right: 10px;
-      cursor: pointer;
+    .left {
+      #burger {
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      #logo {
+        p {
+          margin: 0;
+        }
+      }
     }
-    #logo {
-      p {
-        margin: 0;
+    .right {
+      .name {
+        margin-right: 10px;
+        font-size: 0.8em;
+      }
+      .avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        border: 1px solid white;
+        padding: 2px;
+        img {
+          height: 100%;
+          border-radius: 50%;
+        }
       }
     }
   }
@@ -161,6 +188,7 @@ body,
     color: white;
     transform: translateX(-100%);
     transition: all 0.2s;
+    z-index: 1;
     .social {
       font-size: 1.4em;
       svg {
